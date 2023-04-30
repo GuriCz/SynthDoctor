@@ -6,7 +6,19 @@ const userSchema = new Schema(
     username: {
       type: String,
       trim: true,
-      required: false,
+      required: true,
+      unique: true
+    },
+    name: {
+      type: String,
+      trim: true,
+      required: true,
+      unique: true
+    },
+    surname: {
+      type: String,
+      trim: true,
+      required: true,
       unique: true
     },
     email: {
@@ -19,7 +31,22 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true
-    }
+    },
+    phone:{
+      type: Number
+    },
+    openTickets: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Repair'
+    }],
+    closedTickets: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Repair'
+    }],
+    posts: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Post'
+    }],
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`    
