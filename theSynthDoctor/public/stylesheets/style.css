@@ -71,3 +71,22 @@ body {
 .image-container:hover .caption {
   opacity: 1; /* set the final opacity of the caption */
 }
+
+.color-gray {
+  background-color: rgb(59, 59, 59);
+  border-top: 10px solid rgb(56, 114, 136);
+  padding-bottom: 30px;
+  padding-top: 30px;
+}
+
+.plain{
+  text-decoration: none;
+  color: white;
+  border-bottom: 1px dotted gray;
+}
+
+.li-none {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
