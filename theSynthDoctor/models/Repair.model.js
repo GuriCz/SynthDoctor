@@ -14,6 +14,9 @@ const repairSchema = new Schema(
     urgency:{ // (1 low, 2 normal, 3 high)
         type: Number
     },
+    description:{
+      type:String
+    },
     droppOffDate:{
         type: Date,
     },

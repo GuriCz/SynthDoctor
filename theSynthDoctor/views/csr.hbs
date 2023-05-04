@@ -12,7 +12,9 @@
 <tr>
   <td><img src="{{this.ImagePath}}"></td>
   <td>{{this.Description}}
-    <a href=" {{this.DataSheetUrl}}" target="_blank"> Datasheet</a>
+    {{#if this.DataSheetUrl}}
+    <a href="{{this.DataSheetUrl}}" target="_blank"> Datasheet</a>
+    {{/if}}
   </td>
   <td>
     {{#if this.PriceBreaks}}
