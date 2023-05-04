@@ -30,11 +30,12 @@ const repairSchema = new Schema(
         type:Number
     },
     status:{ // (1 waiting approval, 2 accepted , 2.1 delivered, 3 working on 4 ready)
-        type:String
+        type:Number
     },
     componentRequired:{// will see if use api from Mouser.com or not
     },
-    componentUsed:{// will see if use api from Mouser.com or not
+    componentUsed:{//push an array of objects here, so the object can have already the price, name and all the information in the object, it will be easy to iterate in a table later
+      type:Array
     }
   },
   {
