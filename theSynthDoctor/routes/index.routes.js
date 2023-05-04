@@ -93,6 +93,10 @@ const router = express.Router();
 const bodyParser = require("body-parser");
 const axios = require('axios');
 const app = express();
+require('dotenv').config();
+
+const mKey= process.env.MOUSERKEY
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -111,7 +115,8 @@ router.get("/services-details", (req, res, next) => {
 router.post("/componentsearch", async (req, res) => {
   const searchTerms = req.body.component; // retrieve search terms from the request body
 
-  const endpoint = `https://api.mouser.com/api/v1/search/keyword?apiKey=2b79b383-3bc0-46fc-a650-5005afd1f402`;
+ // const endpoint = `https://api.mouser.com/api/v1/search/keyword?apiKey=2b79b383-3bc0-46fc-a650-5005afd1f402`;
+  const endpoint = `https://api.mouser.com/api/v1/search/keyword?apiKey=${mKey}`;
   const options =  {
       SearchByKeywordRequest: {
         keyword: searchTerms,
