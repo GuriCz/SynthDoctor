@@ -101,6 +101,13 @@ router.get("/", (req, res, next) => {
   res.render("index");
 });
 
+router.get("/services", (req, res, next) => {
+  res.render("services");
+});
+
+router.get("/services-details", (req, res, next) => {
+  res.render("services-details");
+
 router.post("/componentsearch", async (req, res) => {
   const searchTerms = req.body.component; // retrieve search terms from the request body
 
