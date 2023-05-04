@@ -96,21 +96,25 @@ const app = express();
 require('dotenv').config();
 
 const mKey= process.env.MOUSERKEY
+const gKey= process.env.MAP_API
+
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
 /* GET home page */
 router.get("/", (req, res, next) => {
-  res.render("index");
+  console.log(gKey)
+  res.render("index",{gKey} );
 });
 
 router.get("/services", (req, res, next) => {
-  res.render("services");
+  res.render("services", {gKey});
 });
 
 router.get("/services-details", (req, res, next) => {
   res.render("services-details");
+})
 
 router.post("/componentsearch", async (req, res) => {
   const searchTerms = req.body.component; // retrieve search terms from the request body
