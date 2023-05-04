@@ -34,7 +34,8 @@ const repairSchema = new Schema(
     },
     componentRequired:{// will see if use api from Mouser.com or not
     },
-    componentUsed:{// will see if use api from Mouser.com or not
+    componentUsed:{
+      type:Array
     }
   },
   {

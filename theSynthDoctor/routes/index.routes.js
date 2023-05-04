@@ -108,7 +108,7 @@ router.post("/componentsearch", async (req, res) => {
   const options =  {
       SearchByKeywordRequest: {
         keyword: searchTerms,
-        records: 10,
+        records: 40,
         startingRecord: 0,
         searchOptions: '',
         searchWithYourSignUpLanguage: '',
@@ -118,8 +118,9 @@ router.post("/componentsearch", async (req, res) => {
   try {
     const response = await axios.post(endpoint, options);
     const data = response.data; // parse the JSON response
-    console.log(data)
-    res.render("csr", {result: data.SearchResults} );
+    console.log(data.SearchResults.Parts)
+    
+    res.render("csr", {result: data.SearchResults.Parts} );
   } catch (error) {
     console.log(error);
     res.render("csr", {

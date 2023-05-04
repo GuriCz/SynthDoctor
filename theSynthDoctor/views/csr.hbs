@@ -1,7 +1,40 @@
-{{#each result}}
-<div>a {{this.manufacturer}} </div>
-<div> {{this.manufacturerPartNumber}} </div>
-<div> {{this.MouserPartNumber}} </div>
-<div> {{this.SuggestedReplacement}} </div>
-<div> {{this.AvailabilityInStock}} </div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>How many</th>
+    </tr>
+  </thead>
+  <tbody>
+   {{#each result}}
+<tr>
+  <td><img src="{{this.ImagePath}}"></td>
+  <td>{{this.Description}}
+    <a href=" {{this.DataSheetUrl}}" target="_blank"> Datasheet</a>
+  </td>
+  <td>
+    {{#if this.PriceBreaks}}
+      {{this.PriceBreaks.[0].Price}} {{this.PriceBreaks.[0].Currency}}
+    {{else}}
+      N/A
+    {{/if}}
+  </td>
+  <td>
+     <form>
+          <div class="form-group">
+            <input type="number" class="form-control" id="count-{{@index}}" placeholder="Enter count">
+          </div>
+        </form>
+  </td>
+  <td>
+    <button class="btn btn-primary add-to-used-parts" 
+            data-manufacturer="{{this.manufacturer}}" 
+            data-part-number="{{this.manufacturerPartNumber}}" 
+            data-price="{{this.PriceBreaks.[0].Price}}">Add to used parts</button>
+  </td>
+</tr>
 {{/each}}
+  </tbody>
+</table>
