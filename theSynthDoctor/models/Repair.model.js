@@ -30,7 +30,7 @@ const repairSchema = new Schema(
         type:Number
     },
     status:{ // (1 waiting approval, 2 accepted , 2.1 delivered, 3 working on 4 ready)
-        type:String
+        type:Number
     },
     componentRequired:{// will see if use api from Mouser.com or not
     },
