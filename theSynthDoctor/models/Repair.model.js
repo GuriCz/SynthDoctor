@@ -47,6 +47,6 @@ const repairSchema = new Schema(
   }
 );
 
-const Product = model("User", productSchema);
+const Repair = model("Repair", repairSchema);
 
-module.exports = Product;
+module.exports = Repair;

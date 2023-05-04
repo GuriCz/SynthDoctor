@@ -33,6 +33,6 @@ const adminSchema = new Schema(
  
 );
 
-const Admin = model("User", adminSchema);
+const Admin = model("Admin", adminSchema);
 
 module.exports = Admin;
