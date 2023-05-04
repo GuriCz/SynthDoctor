@@ -1,0 +1,19 @@
+<form action="user/contact" method="POST">
+  
+  <input type="text" id="productName" name="productName" placeholder="Product Name" required>
+
+  <input type="text" id="brand" name="brand" placeholder="Brand" required>
+
+  <select id="urgency" name="urgency" placeholder="How urgent is your repair?">
+    <option value="1">Low</option>
+    <option value="2" selected>Normal</option>
+    <option value="3">High</option>
+  </select>
+
+  <textarea id="description" name="description" placeholder="Please, describe the issue at best"></textarea>
+
+  <label for="droppOffDate">Drop-off Date:</label>
+  <input type="date" id="droppOffDate" name="droppOffDate">
+
+  <input type="submit" value="Submit">
+</form>
