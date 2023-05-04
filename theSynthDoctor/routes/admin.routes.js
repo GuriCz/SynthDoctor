@@ -10,17 +10,22 @@ router.get("/", (req, res, next) => {
 });
 
 router.get("/projects", (req, res, next) => {
+  const pending= []
+  const active=[]
+  const closed=[]
+
 
   Repair.find()
   .then((result) =>{
     for(one of result){
-      console.log(one)
+      if(one.status===0||one.status==1||one.status==5)pending.push(one)
+       else if(one.status==2||one.status==3)active.push(one)
+       else if(one.status==4)closed.push(one)
     }
+    res.render("admin-projects",{pending, active, closed});
   })
-    res.render("admin-projects");
-    const pending= []
-    const active=[]
-    const closed=[]
+
+
 
   });
 

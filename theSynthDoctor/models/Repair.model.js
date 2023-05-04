@@ -3,6 +3,8 @@ const { Schema, model } = require("mongoose");
 // TODO: Please make sure you edit the User model to whatever makes sense in this case
 const repairSchema = new Schema(
   {
+    user:{},
+    
     productName: {
       type: String,
       required: true,
@@ -32,10 +34,11 @@ const repairSchema = new Schema(
     hours:{
         type:Number
     },
-    status:{ // (1 waiting approval, 2 accepted , 2.1 delivered, 3 working on 4 ready)
+    status:{ // (0 waiting approval, 1 accepted , 2 delivered, 3 working on 4 ready 5 more info needed)
         type:Number
     },
-    componentRequired:{// will see if use api from Mouser.com or not
+    componentRequired:{
+      type:Array
     },
     componentUsed:{//push an array of objects here, so the object can have already the price, name and all the information in the object, it will be easy to iterate in a table later
       type:Array
