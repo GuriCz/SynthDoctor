@@ -1,4 +1,4 @@
-<form action="user/contact" method="POST">
+<form action="/contact" method="POST">
   
   <input type="text" id="productName" name="productName" placeholder="Product Name" required>
 
@@ -13,7 +13,7 @@
   <textarea id="description" name="description" placeholder="Please, describe the issue at best"></textarea>
 
   <label for="droppOffDate">Drop-off Date:</label>
-  <input type="date" id="droppOffDate" name="droppOffDate">
+  <input type="datetime-local" id="droppOffDate" name="droppOffDate" required>
 
   <input type="submit" value="Submit">
 </form>
