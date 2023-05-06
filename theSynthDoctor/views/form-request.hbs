@@ -13,10 +13,12 @@
   <textarea id="description" name="description" placeholder="Please, describe the issue at best"></textarea>
 
   <label for="droppOffDate">Drop-off Date:</label>
-  <input type="date" id="droppOffDate" name="droppOffDate">
+
+ <input type="datetime-local" id="droppOffDate" name="droppOffDate" required>
    <input type="hidden" name="status" value="0">
    <input type="hidden" name="calculatedPrice" value="0">
    <input type="hidden" name="totalPrice" value="0">
    <input type="hidden" name="hours" value="0">
+
   <input type="submit" value="Submit">
 </form>

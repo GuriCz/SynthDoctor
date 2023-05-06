@@ -61,9 +61,35 @@ router.get("/create", (req, res, next) => {
         })
         res.render("login");
       }
+  });
+
+  
+  router.get('/login', (req, res) => res.render('login'));
 
 
+  router.post('/login', (req, res, next) => {
+    const { username, password } = req.body;
 
+    if (!username || !password ) {
+      res.render('login', {
+        errorMessage: 'Please enter both, username and password to login.'
+      });
+      return;
+    }
+   
+    User.findOne({ username })
+      .then(user => {
+        if (!user) {
+          res.render('login', { errorMessage: 'Username is not registered. Try with other username.' });
+          return;
+        } else if (bcryptjs.compareSync(password, user.password)) {
+          req.session.currentUser = user;
+          res.redirect('/userProfile');
+        } else {
+          res.render('login', { errorMessage: 'Incorrect password.' });
+        }
+      })
+      .catch(error => next(error));
   });
 
   module.exports = router;

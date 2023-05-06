@@ -1,13 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const Repair = require("../models/Repair.model")
-
-//SIGNUP
-router.get('/login', (req, res) => {
-  res.render('login');
-});
-
+const Repair = require("../models/Repair.model");
+const User = require("../models/User.model");
 
 
 //CREATE A REQUEST

@@ -15,6 +15,7 @@ body {
   border-radius: 5px;
 }
 
+
 .carousel-caption{
   font-size: 30px;
   background-color: rgba(56, 114, 136, 0.5);
@@ -75,7 +76,7 @@ body {
 .color-gray {
   background-color: rgb(59, 59, 59);
   border-top: 10px solid rgb(56, 114, 136);
-  padding-bottom: 30px;
+  padding-bottom: 10px;
   padding-top: 30px;
 }
 
