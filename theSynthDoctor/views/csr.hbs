@@ -24,18 +24,16 @@
     {{/if}}
   </td>
   <td>
-     <form>
+     <form action="/admin/projects/workingOn" method="post" class="add-to-used-parts-form">
           <div class="form-group">
-            <input type="number" class="form-control" id="count-{{@index}}" placeholder="Enter count">
+            <input type="number" class="form-control" name="count" placeholder="Enter count">
           </div>
-        </form>
+          <input type="hidden" name="ma" value="{{this.manufacturer}}">
+          <input type="hidden" name="pn" value="{{this.manufacturerPartNumber}}">
+          <input type="hidden" name="pr" value="{{this.PriceBreaks.[0].Price}}">
   </td>
-  <td>
-    <button class="btn btn-primary add-to-used-parts" 
-            data-manufacturer="{{this.manufacturer}}" 
-            data-part-number="{{this.manufacturerPartNumber}}" 
-            data-price="{{this.PriceBreaks.[0].Price}}">Add to used parts</button>
-  </td>
+  <td>          <button type="submit" class="btn btn-primary">Add to used parts</button>
+        </form></td>
 </tr>
 {{/each}}
   </tbody>
