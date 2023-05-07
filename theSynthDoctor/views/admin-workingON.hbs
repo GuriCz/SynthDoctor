@@ -42,6 +42,29 @@
 
 <div>
     <h1>USED PARTS</h1>
+    <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Manufacturer</th>
+      <th>Price</th>
+      <th>Count</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each work.componentUsed}}
+    <tr>
+      <th scope="row">{{this.name}}</th>
+      <td>{{this.manu}}</td>
+      <td>{{this.price}}</td>
+      <td>{{this.count}}</td>
+      <td>{{this.total}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
 </div>
 
 <div>

@@ -136,7 +136,7 @@ router.post("/componentsearch", async (req, res) => {
     const data = response.data; // parse the JSON response
     console.log(data.SearchResults.Parts)
     
-    res.render("csr", {result: data.SearchResults.Parts, id: req.body.caseId} );
+    res.render("csr", {result: data.SearchResults.Parts, caseId: req.body.caseId} );
   } catch (error) {
     console.log(error);
     res.render("csr", {
