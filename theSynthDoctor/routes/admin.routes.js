@@ -63,6 +63,31 @@ router.post("/projects/workingOn", async (req, res, next) => {
     });
   }
 
+  if (req.body.caseIdPR) {
+    let c = req.body.count;
+    let p = req.body.pr;
+    p= p.substring(0, p.length-1)
+    p=p.replace(',', '.')
+    const parsedValue = parseFloat(p);
+    let result = p * c;
+
+    const existingRepair = await Repair.findById(req.body.caseIdPR);
+    const newPart = {
+      name: req.body.pn,
+      manu: req.body.ma,
+      price: req.body.pr,
+      count: req.body.count,
+      total: result
+    };
+
+    existingRepair.componentRequired.push(newPart);
+    await existingRepair.save();
+
+    Repair.findById(req.body.caseIdPR).then((work) => {
+      res.render("admin-workingON", { work });
+    });
+  }
+
   if (req.body.caseId) {
     Repair.findById(req.body.caseId).then((work) => {
       res.render("admin-workingON", { work });
