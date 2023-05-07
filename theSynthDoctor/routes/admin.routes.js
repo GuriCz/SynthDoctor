@@ -25,6 +25,33 @@ router.get("/projects", (req, res, next) => {
   });
 });
 
+router.post("/projects", (req, res, next) => {
+
+  if(req.body.caseIdPending){
+    Repair.findByIdAndUpdate(req.body.caseIdPending,  { status: 2 }).then(()=>{
+      return
+    })
+  }
+  if(req.body.caseIdWorking){
+    Repair.findByIdAndUpdate(req.body.caseIdWorking,  { status: 4 }).then(()=>{
+      return
+    })
+  }
+  const pending = [];
+  const active = [];
+  const closed = [];
+
+  Repair.find().then((result) => {
+    for (one of result) {
+      if (one.status === 0 || one.status == 1 || one.status == 5)
+        pending.push(one);
+      else if (one.status == 2 || one.status == 3) active.push(one);
+      else if (one.status == 4) closed.push(one);
+    }
+    res.render("admin-projects", { pending, active, closed });
+  });
+});
+
 router.get("/projects/workingOn", (req, res, next) => {
   res.render("admin-workingON");
 });
