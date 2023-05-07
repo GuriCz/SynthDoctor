@@ -120,7 +120,6 @@ router.get("/services-details", (req, res, next) => {
 router.post("/componentsearch", async (req, res) => {
   const searchTerms = req.body.component; // retrieve search terms from the request body
 
- // const endpoint = `https://api.mouser.com/api/v1/search/keyword?apiKey=2b79b383-3bc0-46fc-a650-5005afd1f402`;
   const endpoint = `https://api.mouser.com/api/v1/search/keyword?apiKey=${mKey}`;
   const options =  {
       SearchByKeywordRequest: {
@@ -137,7 +136,7 @@ router.post("/componentsearch", async (req, res) => {
     const data = response.data; // parse the JSON response
     console.log(data.SearchResults.Parts)
     
-    res.render("csr", {result: data.SearchResults.Parts} );
+    res.render("csr", {result: data.SearchResults.Parts, id: req.body.caseId} );
   } catch (error) {
     console.log(error);
     res.render("csr", {

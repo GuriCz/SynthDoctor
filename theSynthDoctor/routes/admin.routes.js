@@ -37,8 +37,23 @@ router.get("/projects", (req, res, next) => {
     res.render("admin-workingON");
   });
 
-  router.post("/projects/workingOn", (req, res, next) => {
-    res.render("admin-workingON");
+  router.post("/projects/workingOn",async (req, res, next) => {
+    console.log(req.body.caseId)
+
+
+    if(req.body.newComment){   const existingRepair = await Repair.findById(req.body.caseId);
+      existingRepair.comments.push(req.body.newComment);
+      await existingRepair.save();}
+ 
+
+
+    if(req.body.caseId){
+    }
+    Repair.findById(req.body.caseId).then((work)=>{
+      res.render("admin-workingON", {work});
+    })
+   
+   
 
   });
 

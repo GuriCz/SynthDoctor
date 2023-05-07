@@ -14,10 +14,16 @@
 
     {{#each pending}}
     <tr>
-        <td>{{this.productName}}</td>
+       
+        <td>      <form action="/admin/projects/workingOn" method="post">
+           <input type="hidden" name="caseId" value="{{this._id}}">
+           <button type="submit" class="btn btn-primary">Open</button>
+           </form>
+            {{this.productName}}</td>
          <td>{{this.brand}}</td>
           <td>{{this.urgency}}</td>
            <td>{{this.droppOffDate}}</td>
+      
     </tr>
     
     {{/each}}  

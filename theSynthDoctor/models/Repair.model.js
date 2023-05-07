@@ -4,7 +4,7 @@ const { Schema, model } = require("mongoose");
 const repairSchema = new Schema(
   {
     user:{},
-    
+
     productName: {
       type: String,
       required: true,
@@ -41,6 +41,9 @@ const repairSchema = new Schema(
       type:Array
     },
     componentUsed:{//push an array of objects here, so the object can have already the price, name and all the information in the object, it will be easy to iterate in a table later
+      type:Array
+    },
+    comments:{
       type:Array
     }
   },

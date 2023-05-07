@@ -1,9 +1,66 @@
 <div>
-    <div>COMPONENT SEARCH</div>
-    <form action="/componentsearch" method="post">
-    <label > Search
-        <input type="text" name="component">
+  <div>COMPONENT SEARCH</div>
+  <form action="/componentsearch" method="post">
+    <label>
+      Search
+      <input type="text" name="component" />
     </label>
-    <input type="submit" value="Search">
+     <input type="hidden" name="caseId" value="{{work._id}}">
+    <input type="submit" value="Search" />
+  </form>
+</div>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Product Name</th>
+    <th>Brand</th>
+    <th>DroppOffDate</th>
+    <th>status</th>
+    <th>Hours</th>
+
+    <th>CalculatedPrice</th>
+
+  </tr>
+  <tr>
+    <td>{{work.user}}</td>
+    <td>{{work.productName}}</td>
+    <td>{{work.brand}}</td>
+    <td>{{work.droppOffDate}}</td>
+    <td>{{work.status}}</td>
+    <td>{{work.hours}}</td>
+    <td>{{work.calculatedPrice}}</td>
+  </tr>
+</table>
+
+<div>
+    <h1>CASE DESCRIPTION</h1>
+    <div>{{work.description}}</div>
+</div>
+
+
+
+<div>
+    <h1>USED PARTS</h1>
+</div>
+
+<div>
+    <h1>REQUIRED PARTS</h1>
+</div>
+
+
+<div>
+    <h1>COMMENTS</h1>
+{{#each work.comments}}
+  <div>{{this}}</div>
+  {{/each}}
+</div>
+
+<div>
+    <h1>New comment</h1>
+    <form action="/admin/projects/workingOn" method="post">
+        <input type="text" id="newComment" name="newComment" placeholder="Write new comment" >
+         <input type="hidden" name="caseId" value="{{work._id}}">
+         <input type="submit" value="Submit">
     </form>
 </div>
