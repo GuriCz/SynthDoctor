@@ -27,14 +27,32 @@
      <form action="/admin/projects/workingOn" method="post" class="add-to-used-parts-form">
           <div class="form-group">
             <input type="number" class="form-control" name="count" placeholder="Enter count">
+           
           </div>
-          <input type="hidden" name="ma" value="{{this.manufacturer}}">
-          <input type="hidden" name="pn" value="{{this.manufacturerPartNumber}}">
+          <input type="hidden" name="img" value="{{this.ImagePath}}">
+          <input type="hidden" name="ma" value="{{this.Manufacturer}}">
+          <input type="hidden" name="pn" value="{{this.ManufacturerPartNumber}}">
           <input type="hidden" name="pr" value="{{this.PriceBreaks.[0].Price}}">
+          <input type="hidden" name="caseIdP" value="{{../caseId}}">
   </td>
-  <td>          <button type="submit" class="btn btn-primary">Add to used parts</button>
+  <td>     <button type="submit" class="btn btn-primary">Add to used parts</button>
+        </form></td>
+          <td>
+     <form action="/admin/projects/workingOn" method="post" class="add-to-used-parts-form">
+          <div class="form-group">
+            <input type="number" class="form-control" name="count" placeholder="Enter count">
+           
+          </div>
+          <input type="hidden" name="img" value="{{this.ImagePath}}">
+          <input type="hidden" name="ma" value="{{this.Manufacturer}}">
+          <input type="hidden" name="pn" value="{{this.ManufacturerPartNumber}}">
+          <input type="hidden" name="pr" value="{{this.PriceBreaks.[0].Price}}">
+          <input type="hidden" name="caseIdPR" value="{{../caseId}}">
+  </td>
+  <td>     <button type="submit" class="btn btn-primary">Add to used Required</button>
         </form></td>
 </tr>
 {{/each}}
   </tbody>
 </table>
+
