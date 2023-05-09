@@ -1,14 +1,108 @@
-<div>here are your projects</div>
-
-
 <div>
     <div>PENDING</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product name</th>
+            <th>Brand</th>
+            <th>Urgency</th>
+            <th>Dropp Of</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    {{#each pending}}
+    <tr>
+       
+        <td>      <form action="/admin/projects/workingOn" method="post">
+           <input type="hidden" name="caseId" value="{{this._id}}">
+           <button type="submit" class="btn"> {{this.productName}}</button>
+           </form>
+            </td>
+         <td>{{this.brand}}</td>
+          <td>{{this.urgency}}</td>
+           <td>{{this.droppOffDate}}</td>
+           <td>
+            <form action="/admin/projects" method="post">
+            <input type="hidden" name="caseIdPending" value="{{this._id}}">
+            <button type="submit" class="btn btn-primary">Accept repair</button>
+            </form>
+           </td>
+      
+    </tr>
+    
+    {{/each}}  
+      </tbody>
+</table>
+
 </div>
 
 <div>
     <div>WORKING ON</div>
+    <table class="table">
+    <thead>
+        <tr>
+            <th>Product name</th>
+            <th>Brand</th>
+            <th>Hours</th>
+            <th>Calculated Price</th>
+             <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    {{#each active}}
+    <tr>
+               <td>      <form action="/admin/projects/workingOn" method="post">
+           <input type="hidden" name="caseId" value="{{this._id}}">
+           <button type="submit" class="btn"> {{this.productName}}</button>
+           </form>
+            </td>
+         <td>{{this.brand}}</td>
+          <td>{{this.hours}}</td>
+           <td>{{this.calculatedPrice}}</td>
+            <td>
+            <form action="/admin/projects" method="post">
+            <input type="hidden" name="caseIdWorking" value="{{this._id}}">
+            <button type="submit" class="btn btn-primary">Close case</button>
+            </form>
+           </td>
+    </tr>
+    
+    {{/each}}  
+      </tbody>
+</table>
 </div>
 
 <div>
     <div>CCOMPLETED</div>
+    <table class="table">
+    <thead>
+        <tr>
+            <th>Product name</th>
+            <th>Brand</th>
+            <th>Total Price</th>
+            <th>Pick up</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    {{#each closed}}
+    <tr>
+                <td>      <form action="/admin/projects/workingOn" method="post">
+           <input type="hidden" name="caseId" value="{{this._id}}">
+           <button type="submit" class="btn"> {{this.productName}}</button>
+           </form>
+            </td>
+         <td>{{this.brand}}</td>
+          <td>{{this.totalPrice}}</td>
+           <td>{{this.pickUpDate}}</td>
+    </tr>
+    
+    {{/each}}  
+      </tbody>
+</table>
+
 </div>

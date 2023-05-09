@@ -13,8 +13,9 @@ router.get('/contact', (req, res) => {
 router.post("/contact", async (req, res) => {
   try {
     const newRequest = req.body;
+    console.log(newRequest)
     await Repair.create(newRequest);
-    res.redirect('/');
+    res.render('form-request');
   } catch (err) {
     console.log(err);
   }
