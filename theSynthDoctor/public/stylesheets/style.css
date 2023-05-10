@@ -91,3 +91,34 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.login{
+  height: 70vh;
+  background-image: url('/images/loginbk.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.form-square{
+  padding: 30px 0px;
+  margin-top: 150px;
+}
+
+.icon{
+  width: 90px;
+}
+
+.error{
+  background-color: red;
+  color: black;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.success{
+  background-color: green;
+  color: white;
+  border-radius: 5px;
+  margin: 10px;
+}

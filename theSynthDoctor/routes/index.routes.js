@@ -10,7 +10,6 @@ const mKey= process.env.MOUSERKEY
 const gKey= process.env.MAP_API
 
 
-
 app.use(bodyParser.urlencoded({ extended: true }));
 
 /* GET home page */
@@ -54,7 +53,6 @@ router.post("/componentsearch", async (req, res) => {
     });
   } 
 });
-
 
 
 module.exports = router;

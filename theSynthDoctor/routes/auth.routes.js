@@ -5,6 +5,7 @@ const User = require('../models/User.model');
 const bcrypt = require("bcryptjs")
 const mongoose = require("mongoose")
 
+const gKey= process.env.MAP_API
 
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
@@ -14,7 +15,7 @@ let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{7,}$/;
 
 
 router.get("/create", (req, res, next) => {
-    res.render("account-create");
+    res.render("account-create", {gKey});
   });
   
 router.post("/create", async (req, res, next) => {
@@ -73,7 +74,7 @@ router.post("/create", async (req, res, next) => {
     }
   });
 
-  router.get('/login', (req, res) => res.render('login'));
+  router.get('/login', (req, res) => res.render('login', {gKey}));
 
   router.post('/login', (req, res, next) => {
     const { username, password } = req.body;
@@ -99,9 +100,6 @@ router.post("/create", async (req, res, next) => {
       })
       .catch(error => next(error));
   });
-
-// router.get("/userProfile", (req, res, next) => {
-//   res.render("user-profile");
-// });
+  
 
   module.exports = router;
