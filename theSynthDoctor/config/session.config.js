@@ -1,6 +1,6 @@
 const session = require("express-session");
-const MongoStore = require("connect-mongo")(session);
-const mongoose = require("mongoose");
+//const MongoStore = require("connect-mongo")(session);
+//const mongoose = require("mongoose");
 
 module.exports = (app) => {
   app.set("trust proxy", 1);
@@ -16,10 +16,10 @@ module.exports = (app) => {
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24, // 5 * 60 * 1000 ms === 5 min
       },
-      store: new MongoStore({
+      /*  store: new MongoStore({
         mongooseConnection: mongoose.connection,
         ttl: 60 * 60 * 24, // 1 day
-      }),
+      }),  */
     })
   );
 };

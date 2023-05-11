@@ -58,7 +58,7 @@ router.post("/create", async (req, res, next) => {
         email: newUser.email,
         password: newUser.password,
       });
-      req.session.userId = newUser._id;
+     // req.session.userId = newUser._id;
       res.render("login");
     } catch (error) {
       if (error instanceof mongoose.Error.ValidationError) {
@@ -78,6 +78,11 @@ router.post("/create", async (req, res, next) => {
   router.post('/login', (req, res, next) => {
     const { username, password } = req.body;
 
+  
+      console.log('SESSION =====> ', req.session);
+     
+  
+
     if (!username || !password ) {
       res.render('login', {
         errorMessage: 'Please enter both, username and password to login.'
@@ -91,8 +96,8 @@ router.post("/create", async (req, res, next) => {
           res.render('login', { errorMessage: 'Username is not registered. Try with other username.' });
           return;
         } else if (bcrypt.compareSync(password, user.password)) {
-          //req.session.currentUser = user;
-          res.render("user-profile", {user});
+          req.session.currentUser = user;
+          res.render("user-profile", {user, userInSession: req.session.currentUser });
         } else {
           res.render('login', { errorMessage: 'Incorrect password.' });
         }
