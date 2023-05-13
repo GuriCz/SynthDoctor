@@ -1,8 +1,31 @@
 const Blog = require("../models/Blog.model");
+const User = require("../models/User.model");
 const router = require("express").Router();
 
 
 router.get("/blog", (req, res) => {
+
+  if (req.session.currentUser) {
+    const { username, password } = req.session.currentUser;
+    //console.log('USERNAME: ', username, 'PASSWORD: ', password);
+    User.findOne({ username }).then((user) => {
+      if (password===user.password) {
+        Blog.find()
+        .then((blog) => {
+          res.render("blog space/blog.hbs", { blog,  user  ,userInSession: req.session.currentUser});
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      } else {
+        res.render("login", { errorMessage: "Incorrect password." });
+      }
+    });
+  } else {
+
+
+
   Blog.find()
     .then((blog) => {
       res.render("blog space/blog.hbs", { blog });
@@ -10,6 +33,7 @@ router.get("/blog", (req, res) => {
     .catch((err) => {
       console.log(err);
     });
+  }
 });
 
 router.get("/create-blog", (req, res) => {

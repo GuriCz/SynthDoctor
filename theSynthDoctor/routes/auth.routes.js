@@ -1,13 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db/index.js");
-
-const User = require('../models/User.model');
-const bcrypt = require("bcryptjs")
-const mongoose = require("mongoose")
-
-const gKey= process.env.MAP_API
-
+const User = require("../models/User.model");
+const bcrypt = require("bcryptjs");
+const mongoose = require("mongoose");
 
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
@@ -16,10 +12,8 @@ let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{7,}$/;
 
 router.get("/create", (req, res, next) => {
-
-    res.render("account-create", {gKey});
-  });
-  
+  res.render("account-create");
+});
 
 router.post("/create", async (req, res, next) => {
   const newUser = req.body;
@@ -80,16 +74,15 @@ router.post("/create", async (req, res, next) => {
 });
 
 router.get("/login", (req, res) => {
-  console.log('SESSION LOGIN: ',req.session);
+
+  //console.log('SESSION LOGIN: ',req.session);
+
   if (req.session.currentUser) {
     const { username, password } = req.session.currentUser;
-    console.log('USERNAME: ', username, 'PASSWORD: ', password);
+    //console.log('USERNAME: ', username, 'PASSWORD: ', password);
     User.findOne({ username }).then((user) => {
       if (password===user.password) {
-        res.render("user-profile", {
-          user,
-          userInSession: req.session.currentUser,
-        });
+        res.render("user-profile", { user,userInSession: req.session.currentUser });
       } else {
         res.render("login", { errorMessage: "Incorrect password." });
       }
@@ -99,12 +92,10 @@ router.get("/login", (req, res) => {
   }
 });
 
-
-  router.get('/login', (req, res) => res.render('login', {gKey}));
-
+router.post("/login", (req, res, next) => {
+  const { username, password } = req.body;
 
   console.log("SESSION =====> ", req.session);
-
 
   if (!username || !password) {
     res.render("login", {
@@ -132,10 +123,6 @@ router.get("/login", (req, res) => {
     })
     .catch((error) => next(error));
 });
-
-// router.get("/userProfile", (req, res, next) => {
-//   res.render("user-profile");
-// });
 
 
 module.exports = router;
