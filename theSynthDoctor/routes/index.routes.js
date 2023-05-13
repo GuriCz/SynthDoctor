@@ -38,6 +38,10 @@ router.get("/services-details", (req, res, next) => {
   res.render("services-details");
 })
 
+router.get("/about", (req, res, next) => {
+  res.render("about", {gKey});
+});
+
 router.post("/componentsearch", async (req, res) => {
   const searchTerms = req.body.component; // retrieve search terms from the request body
 
