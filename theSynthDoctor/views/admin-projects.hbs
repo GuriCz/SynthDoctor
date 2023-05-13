@@ -1,7 +1,7 @@
-<div>
-    <div>PENDING</div>
+<div style="margin: 30px;">
+    <div><button type="button" class="btn btn-outline-primary" onclick="toggleTableP()">PENDING</button></div>
 
-<table class="table">
+<table class="table table-hover" id="pending-table">
     <thead>
         <tr>
             <th>Product name</th>
@@ -22,7 +22,17 @@
            </form>
             </td>
          <td>{{this.brand}}</td>
-          <td>{{this.urgency}}</td>
+          <td>
+{{!--   {{#if (this.urgency == 1)}}
+    <div style="background-color: green;"></div>
+
+  {{else if (this.urgency == 2)}}
+    <div style="background-color: yellow;"></div>
+ 
+  {{else if (this.urgency == 3)}}
+    <div style="background-color: red;"></div>
+  {{/if}}  --}}
+</td> 
            <td>{{this.droppOffDate}}</td>
            <td>
             <form action="/admin/projects" method="post">
@@ -39,9 +49,9 @@
 
 </div>
 
-<div>
-    <div>WORKING ON</div>
-    <table class="table">
+<div style="margin: 30px;">
+    <div><button type="button" class="btn btn-outline-primary" onclick="toggleTableW()">WORKING ON</button></div>
+    <table class="table" id="working-table">
     <thead>
         <tr>
             <th>Product name</th>
@@ -76,9 +86,9 @@
 </table>
 </div>
 
-<div>
-    <div>CCOMPLETED</div>
-    <table class="table">
+<div style="margin: 30px;"> 
+    <div> <button type="button"   class="btn btn-outline-primary" onclick="toggleTableC()">COMPLETED</button></div>
+   <table class="table" id="closed-table">
     <thead>
         <tr>
             <th>Product name</th>
@@ -106,3 +116,32 @@
 </table>
 
 </div>
+
+<script>
+function toggleTableP() {
+  let table = document.getElementById("pending-table");
+  if (table.style.display === "none") {
+    table.style.display = "table";
+  } else {
+    table.style.display = "none";
+  }
+}
+
+function toggleTableW() {
+  let table = document.getElementById("working-table");
+  if (table.style.display === "none") {
+    table.style.display = "table";
+  } else {
+    table.style.display = "none";
+  }
+}
+
+function toggleTableC() {
+  let table = document.getElementById("closed-table");
+  if (table.style.display === "none") {
+    table.style.display = "table";
+  } else {
+    table.style.display = "none";
+  }
+}
+</script>
