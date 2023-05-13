@@ -1,6 +1,5 @@
 const { Schema, model } = require("mongoose");
 
-// TODO: Please make sure you edit the User model to whatever makes sense in this case
 const adminSchema = new Schema(
   {
     username: {
@@ -28,9 +27,13 @@ const adminSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: 'Repair'
       }],
-      messages:[
-
-      ]
+      messages: [{
+        name: String,
+        email: String,
+        phone: String,
+        subject: String,
+        message: String
+      }]
   },
   
  
