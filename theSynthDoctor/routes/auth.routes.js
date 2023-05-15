@@ -4,7 +4,7 @@ const db = require("../db/index.js");
 const User = require("../models/User.model");
 const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
-
+const Repair = require("../models/Repair.model");
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
 
@@ -75,7 +75,7 @@ router.post("/create", async (req, res, next) => {
 
 router.get("/login", (req, res) => {
 
-  //console.log('SESSION LOGIN: ',req.session);
+  console.log('SESSION LOGIN: ',req.session);
 
   if (req.session.currentUser) {
     const { username, password } = req.session.currentUser;
@@ -123,6 +123,46 @@ router.post("/login", (req, res, next) => {
     })
     .catch((error) => next(error));
 });
+
+router.post("/logout", (req, res, next) => {
+  req.session.destroy((err) => {
+    if (err) next(err);
+    res.redirect("/");
+  });
+});
+
+router.get("/repair", (req, res) => {
+  res.render('success', {gKey});
+})
+
+router.post("/repair", async (req, res) => {
+  try {
+    const newRepair = req.body;
+    console.log(newRepair)
+    await Repair.create(newRepair);
+    res.render("success", { repairMessage: 'Form submitted successfully!' });
+  } catch (error) {
+    if (error instanceof mongoose.Error.ValidationError) {
+      res.status(500).render("success", { repairErrorMessage });
+    } else if (error.code === 11000) {
+      res.status(500).render("success", { repairErrorMessage: "Error. Please try again" });
+    }
+  }
+});
+
+
+// router.get('/opentickets', (req, res, next) => {
+//   const { userId } = req.session.currentUser;
+//   User.findById(userId).populate('openTickets')
+//     .then(user => {
+//       const openTickets = user.openTickets;
+//       res.render('opentickets', { openTickets });
+//     })
+//     .catch(err => {
+//       console.log(`Error while getting open tickets from DB: ${err}`);
+//       next(err);
+//     });
+// });
 
 
 module.exports = router;

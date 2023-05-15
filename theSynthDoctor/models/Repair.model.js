@@ -13,8 +13,11 @@ const repairSchema = new Schema(
         type: String,
         required: true,
       },
-    urgency:{ // (1 low, 2 normal, 3 high)
-        type: Number
+    urgency:{ //  type: Number(1 low, 2 normal, 3 high)
+      low: [],
+      normal: [],
+      high: []
+  
     },
     description:{
       type:String

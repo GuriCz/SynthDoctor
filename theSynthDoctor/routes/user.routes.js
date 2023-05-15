@@ -33,15 +33,6 @@ router.post('/contact', async (req, res) => {
   isRouteRunning = true;
 });
 
-// router.post("/contact", async (req, res) => {
-//   try {
-//     const newRequest = req.body;
-//     console.log(newRequest)
-//     await Repair.create(newRequest);
-//     res.render('form-request');
-//   } catch (err) {
-//     console.log(err);
-//   }
-// });
+
 
 module.exports = router;

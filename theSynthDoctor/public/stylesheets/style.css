@@ -122,3 +122,26 @@ body {
   border-radius: 5px;
   margin: 10px;
 }
+
+.profile-header{
+  background-image: url('/images/bk-profile.jpg');
+  height: 27vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin-bottom: 30px;
+}
+
+.config-icon{
+  width: 50px;
+}
+
+.profile-anchor {
+  font-size: inherit;
+  text-decoration: none;
+  color: gray;
+}
+
+.successRepair{
+  height: 50vh;
+}
