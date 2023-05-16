@@ -138,31 +138,36 @@ router.get("/repair", (req, res) => {
 router.post("/repair", async (req, res) => {
   try {
     const newRepair = req.body;
-    console.log(newRepair)
+    console.log(newRepair);
     await Repair.create(newRepair);
     res.render("success", { repairMessage: 'Form submitted successfully!' });
   } catch (error) {
-    if (error instanceof mongoose.Error.ValidationError) {
-      res.status(500).render("success", { repairErrorMessage });
-    } else if (error.code === 11000) {
-      res.status(500).render("success", { repairErrorMessage: "Error. Please try again" });
-    }
+    console.log(error);
+    // Handle specific types of errors
+    // if (error instanceof mongoose.Error.ValidationError) {
+    //   res.status(500).render("success", { repairErrorMessage: "Validation error" });
+    // } else if (error.code === 11000) {
+    //   res.status(500).render("success", { repairErrorMessage: "Duplicate key error" });
+    // } else {
+    //   res.status(500).render("success", { repairErrorMessage: "Unknown error" });
+    // }
   }
 });
 
 
-// router.get('/opentickets', (req, res, next) => {
-//   const { userId } = req.session.currentUser;
-//   User.findById(userId).populate('openTickets')
-//     .then(user => {
-//       const openTickets = user.openTickets;
-//       res.render('opentickets', { openTickets });
-//     })
-//     .catch(err => {
-//       console.log(`Error while getting open tickets from DB: ${err}`);
-//       next(err);
-//     });
-// });
+router.get('/opentickets', (req, res, next) => {
+  const { userId } = req.session.currentUser;
+  User.findById(userId).populate('openTickets')
+    .then(user => {
+      const openTickets = user.openTickets;
+      res.render('opentickets', { openTickets });
+      console.log(openTickets);
+    })
+    .catch(err => {
+      console.log(`Error while getting open tickets from DB: ${err}`);
+      next(err);
+    });
+});
 
 
 module.exports = router;
