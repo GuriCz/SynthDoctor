@@ -80,16 +80,15 @@ router.post("/create", async (req, res, next) => {
 });
 
 router.get("/login", (req, res) => {
-  console.log('SESSION LOGIN: ',req.session);
+
+  //console.log('SESSION LOGIN: ',req.session);
+
   if (req.session.currentUser) {
     const { username, password } = req.session.currentUser;
-    console.log('USERNAME: ', username, 'PASSWORD: ', password);
+    //console.log('USERNAME: ', username, 'PASSWORD: ', password);
     User.findOne({ username }).then((user) => {
       if (password===user.password) {
-        res.render("user-profile", {
-          user,
-          userInSession: req.session.currentUser,
-        });
+        res.render("user-profile", { user,userInSession: req.session.currentUser });
       } else {
         res.render("login", { errorMessage: "Incorrect password." });
       }
@@ -135,9 +134,6 @@ router.get("/login", (req, res) => {
     .catch((error) => next(error));
 });
 
-// router.get("/userProfile", (req, res, next) => {
-//   res.render("user-profile");
-// });
 
 
 module.exports = router;
