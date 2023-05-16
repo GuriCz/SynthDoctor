@@ -1,11 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db/index.js");
+
 const User = require("../models/User.model");
 const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
 // require auth middleware
 const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard.js');
+
+
+const gKey= process.env.MAP_API
+
 
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
@@ -13,9 +18,11 @@ const salt = bcrypt.genSaltSync(saltRounds);
 let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{7,}$/;
 
+
 router.get("/create", isLoggedOut, (req, res, next) => {
-  res.render("account-create");
+  res.render("account-create", {gKey});
 });
+
 
 router.post("/create", async (req, res, next) => {
   const newUser = req.body;
@@ -94,10 +101,14 @@ router.get("/login", isLoggedOut, (req, res) => {
   }
 });
 
-router.post("/login", (req, res, next) => {
-  const { username, password } = req.body;
+
+  router.get('/login', (req, res) => res.render('login', {gKey}));
+
+
 
   console.log("SESSION =====> ", req.session);
+
+
 
   if (!username || !password) {
     res.render("login", {
@@ -132,5 +143,6 @@ router.post('/logout', (req, res, next) => {
     res.redirect('/');
   });
 });
+
 
 module.exports = router;
