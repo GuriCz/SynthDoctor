@@ -23,15 +23,14 @@
             </td>
          <td>{{this.brand}}</td>
           <td>
-{{!--   {{#if (this.urgency == 1)}}
-    <div style="background-color: green;"></div>
 
-  {{else if (this.urgency == 2)}}
-    <div style="background-color: yellow;"></div>
- 
-  {{else if (this.urgency == 3)}}
-    <div style="background-color: red;"></div>
-  {{/if}}  --}}
+<td>
+   <div class="status" data-status="{{this.status}}">{{this.status}}</div>
+
+</td> 
+
+
+
 </td> 
            <td>{{this.droppOffDate}}</td>
            <td>
@@ -58,6 +57,7 @@
             <th>Brand</th>
             <th>Hours</th>
             <th>Calculated Price</th>
+            <th>Status</th>
              <th>Action</th>
         </tr>
     </thead>
@@ -73,6 +73,9 @@
          <td>{{this.brand}}</td>
           <td>{{this.hours}}</td>
            <td>{{this.calculatedPrice}}</td>
+<td>
+                        <div class="status" data-status="{{this.status}}">{{this.status}}</div>
+                    </td>
             <td>
             <form action="/admin/projects" method="post">
             <input type="hidden" name="caseIdWorking" value="{{this._id}}">
@@ -118,6 +121,9 @@
 </div>
 
 <script>
+
+
+
 function toggleTableP() {
   let table = document.getElementById("pending-table");
   if (table.style.display === "none") {
@@ -144,4 +150,39 @@ function toggleTableC() {
     table.style.display = "none";
   }
 }
+
+function getStatusColor(status) {
+  switch (status) {
+    case 1:
+      return "blue";
+    case 2:
+      return "green";
+    case 3:
+      return "yellow";
+    case 4:
+      return "orange";
+    case 5:
+      return "purple";
+    case 6:
+      return "red";
+    default:
+      return "black";
+  }
+}
+
+function checkStatus(statusDiv) {
+  let status = parseInt(statusDiv.dataset.status);
+  let color = getStatusColor(status);
+  statusDiv.style.backgroundColor = color;
+}
+
+function setInitialStatusColors() {
+  let statusDivs = document.getElementsByClassName("status");
+  for (let i = 0; i < statusDivs.length; i++) {
+    let statusDiv = statusDivs[i];
+    checkStatus(statusDiv);
+    statusDiv.innerHTML = 'TEST';
+  }
+}
+setInitialStatusColors()
 </script>
