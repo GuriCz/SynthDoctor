@@ -2,9 +2,12 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db/index.js");
 
-const User = require('../models/User.model');
-const bcrypt = require("bcryptjs")
-const mongoose = require("mongoose")
+const User = require("../models/User.model");
+const bcrypt = require("bcryptjs");
+const mongoose = require("mongoose");
+// require auth middleware
+const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard.js');
+
 
 const gKey= process.env.MAP_API
 
@@ -15,11 +18,11 @@ const salt = bcrypt.genSaltSync(saltRounds);
 let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{7,}$/;
 
-router.get("/create", (req, res, next) => {
 
-    res.render("account-create", {gKey});
-  });
-  
+router.get("/create", isLoggedOut, (req, res, next) => {
+  res.render("account-create", {gKey});
+});
+
 
 router.post("/create", async (req, res, next) => {
   const newUser = req.body;
@@ -79,7 +82,7 @@ router.post("/create", async (req, res, next) => {
   }
 });
 
-router.get("/login", (req, res) => {
+router.get("/login", isLoggedOut, (req, res) => {
 
   //console.log('SESSION LOGIN: ',req.session);
 
@@ -134,6 +137,12 @@ router.get("/login", (req, res) => {
     .catch((error) => next(error));
 });
 
+router.post('/logout', (req, res, next) => {
+  req.session.destroy(err => {
+    if (err) next(err);
+    res.redirect('/');
+  });
+});
 
 
 module.exports = router;
