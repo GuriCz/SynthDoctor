@@ -3,7 +3,9 @@ const { Schema, model } = require("mongoose");
 // TODO: Please make sure you edit the User model to whatever makes sense in this case
 const repairSchema = new Schema(
   {
-    user:{},
+    user:{
+
+    },
 
     productName: {
       type: String,
@@ -13,8 +15,11 @@ const repairSchema = new Schema(
         type: String,
         required: true,
       },
-    urgency:{ // (1 low, 2 normal, 3 high)
-        type: Number
+    urgency:{ //  type: Number(1 low, 2 normal, 3 high)
+      low: [],
+      normal: [],
+      high: []
+       
     },
     description:{
       type:String
@@ -34,7 +39,7 @@ const repairSchema = new Schema(
     hours:{
         type:Number
     },
-    status:{ // (0 waiting approval, 1 accepted , 2 delivered, 3 working on 4 ready 5 more info needed)
+    status:{ // (0 waiting approval, 1 accepted , 2 delivered, 3 working on 4 ready 5 more info needed // 6 closed (paid and everything))
         type:Number
     },
     componentRequired:{
