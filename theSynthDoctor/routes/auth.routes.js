@@ -128,10 +128,7 @@ router.post("/login", (req, res, next) => {
         return;
       } else if (bcrypt.compareSync(password, user.password)) {
         req.session.currentUser = user;
-        res.render("user-profile", {
-          user,
-          userInSession: req.session.currentUser,
-        });
+        res.redirect("/user-profile");
       } else {
         res.render("login", { errorMessage: "Incorrect password." });
       }
@@ -139,6 +136,24 @@ router.post("/login", (req, res, next) => {
     .catch((error) => next(error));
 });
 
+router.get("/user-profile", async (req, res, next) => {
+  try {
+    const userId = req.session.currentUser._id;
+    const repairs = await Repair.find({user: userId});
+    const user = {...req.session.currentUser, openTickets: repairs};
+    res.render('user-profile', { gKey, userInSession: user });
+  } catch (error) {
+    console.log(`Error while retrieving user profile: ${error}`);
+    next(error);
+  }
+});
+
+// router.get("/user-profile", (req, res, next)=> {
+//   console.log(req.session.currentUser);
+//   res.render('user-profile', {gKey, 
+//     userInSession: req.session.currentUser,
+//   });
+// })
 
 router.post("/logout", (req, res, next) => {
   req.session.destroy((err) => {
@@ -158,31 +173,14 @@ router.post("/repair", async (req, res) => {
     await Repair.create(newRepair);
     res.render("success", { repairMessage: 'Form submitted successfully!' });
   } catch (error) {
-    console.log(error);
-    // Handle specific types of errors
-    // if (error instanceof mongoose.Error.ValidationError) {
-    //   res.status(500).render("success", { repairErrorMessage: "Validation error" });
-    // } else if (error.code === 11000) {
-    //   res.status(500).render("success", { repairErrorMessage: "Duplicate key error" });
-    // } else {
-    //   res.status(500).render("success", { repairErrorMessage: "Unknown error" });
-    // }
+    if (error instanceof mongoose.Error.ValidationError) {
+      res.status(500).render("success", { repairErrorMessage: "Validation error" });
+    } else if (error.code === 11000) {
+      res.status(500).render("success", { repairErrorMessage: "Duplicate key error" });
+    } else {
+      res.status(500).render("success", { repairErrorMessage: "Unknown error" });
+    }
   }
-});
-
-
-router.get('/opentickets', (req, res, next) => {
-  const { userId } = req.session.currentUser;
-  User.findById(userId).populate('openTickets')
-    .then(user => {
-      const openTickets = user.openTickets;
-      res.render('opentickets', { openTickets });
-      console.log(openTickets);
-    })
-    .catch(err => {
-      console.log(`Error while getting open tickets from DB: ${err}`);
-      next(err);
-    });
 });
 
 
