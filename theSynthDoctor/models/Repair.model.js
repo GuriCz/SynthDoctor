@@ -3,9 +3,8 @@ const { Schema, model } = require("mongoose");
 // TODO: Please make sure you edit the User model to whatever makes sense in this case
 const repairSchema = new Schema(
   {
-    user:{
 
-    },
+    user: {  type: Schema.Types.ObjectId, ref: 'User' },
 
     productName: {
       type: String,
@@ -19,7 +18,6 @@ const repairSchema = new Schema(
       low: [],
       normal: [],
       high: []
-       
     },
     description:{
       type:String
