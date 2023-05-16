@@ -102,8 +102,9 @@ router.get("/login", isLoggedOut, (req, res) => {
 });
 
 
-  router.get('/login', (req, res) => res.render('login', {gKey}));
-
+ 
+router.post("/login", (req, res, next) => {
+  const { username, password } = req.body;
 
 
   console.log("SESSION =====> ", req.session);
