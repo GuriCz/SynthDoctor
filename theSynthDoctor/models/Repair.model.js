@@ -15,9 +15,7 @@ const repairSchema = new Schema(
         required: true,
       },
     urgency:{ //  type: Number(1 low, 2 normal, 3 high)
-      low: [],
-      normal: [],
-      high: []
+   type:Number
     },
     description:{
       type:String
