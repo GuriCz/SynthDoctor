@@ -10,7 +10,7 @@
             let currentTotal = parseFloat(totalElement.innerText);
             currentTotal = isNaN(currentTotal) ? 0 : currentTotal;
             const newTotal = currentTotal + price;
-            totalElement.innerText = newTotal.toFixed(2);
+            totalElement.innerText = newTotal.toFixed();
         }
         function resetTotal() {
             const totalElement = document.getElementById('total');
@@ -34,9 +34,9 @@
                         and inside), the disassembly and assembly of the device, and the first inspection and step of
                         troubleshooting: understanding what's actually going on inside the device (what's the problem,
                         not the solution).</p>
-                    <span class="price">Price: €30</span>
-                    <button type="button" class="btn btn-primary btn-sm" onclick="addToTotal(this)"
-                        data-price="30">Add</button>
+                    <span class="price">Price: €30</span>  <span> Always included</span>
+                  {{!--   <button type="button" class="btn btn-primary btn-sm" onclick="addToTotal(this)"
+                        data-price="30">Add</button> --}}
                 </div>
             </div>
         </div>
@@ -187,7 +187,7 @@
     <br>
     <div class="d-flex align-items-center">
         <h5 class="me-3">Current Total:</h5>
-        <h5><span id="total">0</span>€</h5>
+        <h5><span id="total">30</span>€</h5>
         <button type="button" class="btn btn-danger ms-3" onclick="resetTotal()">Reset</button>
     </div>
     <br><br>
