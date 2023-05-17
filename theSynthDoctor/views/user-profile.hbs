@@ -41,6 +41,7 @@
         <h3>Create a new repair request</h3>
         <div>
           <form action="/repair" method="POST">
+          <input type="hidden" name="user" value="{{userInSession._id}}">
             <div class="row">
               <div class="col form-group">
                 <label for="productName">Product Name:</label>
@@ -85,16 +86,19 @@
       <h1>Welcome to open tickets</h1>
 
 
-{{!-- {{#if !userInSession.openTickets}}
-<p>Sorry! You don't have any open tickets yet</p>
+{{#if userInSession.openTickets}}
+{{!-- <p>Sorry! You don't have any open tickets yet</p> --}}
 
-{{else}}
+{{!-- {{else}} --}}
 
   {{#each userInSession.openTickets}}
-    <p>{{this}}</p>
+    <p>{{this.productName}}</p>
   {{/each}} 
 
-{{/if}} --}}
+{{/if}}
+
+
+
 
 
   </div>
