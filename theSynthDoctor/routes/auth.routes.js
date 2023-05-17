@@ -148,12 +148,6 @@ router.get("/user-profile", async (req, res, next) => {
   }
 });
 
-// router.get("/user-profile", (req, res, next)=> {
-//   console.log(req.session.currentUser);
-//   res.render('user-profile', {gKey, 
-//     userInSession: req.session.currentUser,
-//   });
-// })
 
 router.post("/logout", (req, res, next) => {
   req.session.destroy((err) => {
@@ -173,13 +167,7 @@ router.post("/repair", async (req, res) => {
     await Repair.create(newRepair);
     res.render("success", { repairMessage: 'Form submitted successfully!' });
   } catch (error) {
-    if (error instanceof mongoose.Error.ValidationError) {
-      res.status(500).render("success", { repairErrorMessage: "Validation error" });
-    } else if (error.code === 11000) {
-      res.status(500).render("success", { repairErrorMessage: "Duplicate key error" });
-    } else {
-      res.status(500).render("success", { repairErrorMessage: "Unknown error" });
-    }
+    console.log(error);
   }
 });
 
