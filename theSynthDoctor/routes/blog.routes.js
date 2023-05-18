@@ -7,7 +7,6 @@ router.get("/blog", (req, res) => {
 
   if (req.session.currentUser) {
     const { username, password } = req.session.currentUser;
-    //console.log('USERNAME: ', username, 'PASSWORD: ', password);
     User.findOne({ username }).then((user) => {
       if (password===user.password) {
         Blog.find()

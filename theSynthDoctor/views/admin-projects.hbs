@@ -7,7 +7,8 @@
             <th>Product name</th>
             <th>Brand</th>
             <th>Urgency</th>
-            <th>Dropp Of</th>
+            <th>Stuatus</th>
+            <th>Delivery Date</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -23,15 +24,12 @@
             </td>
          <td>{{this.brand}}</td>
           <td>
-{{!--   {{#if (this.urgency == 1)}}
-    <div style="background-color: green;"></div>
+             <div class="urgency" data-status="{{this.urgency}}"> . </div>
+</td> 
 
-  {{else if (this.urgency == 2)}}
-    <div style="background-color: yellow;"></div>
- 
-  {{else if (this.urgency == 3)}}
-    <div style="background-color: red;"></div>
-  {{/if}}  --}}
+<td>
+   <div class="status" data-status="{{this.status}}" height="20px" width="20px"> .</div>
+
 </td> 
            <td>{{this.droppOffDate}}</td>
            <td>
@@ -58,6 +56,7 @@
             <th>Brand</th>
             <th>Hours</th>
             <th>Calculated Price</th>
+            <th>Status</th>
              <th>Action</th>
         </tr>
     </thead>
@@ -73,6 +72,9 @@
          <td>{{this.brand}}</td>
           <td>{{this.hours}}</td>
            <td>{{this.calculatedPrice}}</td>
+<td>
+                        <div class="status" data-status="{{this.status}}">{{this.status}}</div>
+                    </td>
             <td>
             <form action="/admin/projects" method="post">
             <input type="hidden" name="caseIdWorking" value="{{this._id}}">
@@ -118,6 +120,7 @@
 </div>
 
 <script>
+
 function toggleTableP() {
   let table = document.getElementById("pending-table");
   if (table.style.display === "none") {
@@ -144,4 +147,70 @@ function toggleTableC() {
     table.style.display = "none";
   }
 }
+
+function getStatusColor(status) {
+  switch (status) {
+    case 0:
+      return "blue";
+    case 1:
+      return "grey";
+    case 2:
+      return "yellow";
+          case 3:
+      return "red";
+    case 4:
+      return "orange";
+    case 5:
+      return "purple";
+    case 6:
+      return "red";
+    default:
+      return "black";
+  }
+}
+
+function checkStatus(statusDiv) {
+  let status = parseInt(statusDiv.dataset.status);
+  let color = getStatusColor(status);
+  statusDiv.style.backgroundColor = color;
+}
+
+function setInitialStatusColors() {
+  let statusDivs = document.getElementsByClassName("status");
+  for (let i = 0; i < statusDivs.length; i++) {
+    let statusDiv = statusDivs[i];
+    checkStatus(statusDiv);
+    //statusDiv.innerHTML = 'TEST';
+  }
+}
+
+function setInitialUrgencyColors() {
+  let urgencyDivs = document.getElementsByClassName("urgency");
+  for (let i = 0; i < urgencyDivs.length; i++) {
+    let urgencyDiv = urgencyDivs[i];
+    checkUrgency(urgencyDiv);
+    //urgencyDiv.innerHTML = 'TEST';
+  }
+}
+
+function checkUrgency(urgencyDiv) {
+  let status = parseInt(urgencyDiv.dataset.status);
+  let color = getUrgencyColor(status);
+  urgencyDiv.style.backgroundColor = color;
+}
+
+
+function getUrgencyColor(urgency) {
+  switch (urgency) {
+    case 1:
+      return "green";
+    case 2:
+      return "yellow";
+    case 3:
+      return "red";
+}
+}
+
+setInitialStatusColors()
+setInitialUrgencyColors()
 </script>

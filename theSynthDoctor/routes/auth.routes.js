@@ -2,12 +2,16 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db/index.js");
 
-const User = require('../models/User.model');
-const bcrypt = require("bcryptjs")
-const mongoose = require("mongoose")
+const User = require("../models/User.model");
+const bcrypt = require("bcryptjs");
+const mongoose = require("mongoose");
+
+const Repair = require("../models/Repair.model");
+
+const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard.js');
+
 
 const gKey= process.env.MAP_API
-
 
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
@@ -15,11 +19,11 @@ const salt = bcrypt.genSaltSync(saltRounds);
 let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{7,}$/;
 
-router.get("/create", (req, res, next) => {
 
-    res.render("account-create", {gKey});
-  });
-  
+router.get("/create", isLoggedOut, (req, res, next) => {
+  res.render("account-create", {gKey});
+});
+
 
 router.post("/create", async (req, res, next) => {
   const newUser = req.body;
@@ -79,9 +83,9 @@ router.post("/create", async (req, res, next) => {
   }
 });
 
-router.get("/login", (req, res) => {
+router.get("/login", isLoggedOut, (req, res) => {
 
-  //console.log('SESSION LOGIN: ',req.session);
+  console.log('SESSION LOGIN: ',req.session);
 
   if (req.session.currentUser) {
     const { username, password } = req.session.currentUser;
@@ -124,10 +128,7 @@ router.post("/login", (req, res, next) => {
         return;
       } else if (bcrypt.compareSync(password, user.password)) {
         req.session.currentUser = user;
-        res.render("user-profile", {
-          user,
-          userInSession: req.session.currentUser,
-        });
+        res.redirect("/user-profile");
       } else {
         res.render("login", { errorMessage: "Incorrect password." });
       }
@@ -135,6 +136,52 @@ router.post("/login", (req, res, next) => {
     .catch((error) => next(error));
 });
 
+router.get("/user-profile", async (req, res, next) => {
+  try {
+    const userId = req.session.currentUser._id;
+    const repairs = await Repair.find({user: userId});
+    const user = {...req.session.currentUser, openTickets: repairs};
+    res.render('user-profile', { gKey, userInSession: user });
+  } catch (error) {
+    console.log(`Error while retrieving user profile: ${error}`);
+    next(error);
+  }
+});
+
+// router.get("/user-profile", (req, res, next)=> {
+//   console.log(req.session.currentUser);
+//   res.render('user-profile', {gKey, 
+//     userInSession: req.session.currentUser,
+//   });
+// })
+
+router.post("/logout", (req, res, next) => {
+  req.session.destroy((err) => {
+    if (err) next(err);
+    res.redirect("/");
+  });
+});
+
+router.get("/repair", (req, res) => {
+  res.render('success', {gKey});
+})
+
+router.post("/repair", async (req, res) => {
+  try {
+    const newRepair = req.body;
+    console.log(newRepair);
+    await Repair.create(newRepair);
+    res.render("success", { repairMessage: 'Form submitted successfully!' });
+  } catch (error) {
+    if (error instanceof mongoose.Error.ValidationError) {
+      res.status(500).render("success", { repairErrorMessage: "Validation error" });
+    } else if (error.code === 11000) {
+      res.status(500).render("success", { repairErrorMessage: "Duplicate key error" });
+    } else {
+      res.status(500).render("success", { repairErrorMessage: "Unknown error" });
+    }
+  }
+});
 
 
 module.exports = router;
