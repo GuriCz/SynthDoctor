@@ -22,13 +22,13 @@ router.post('/contact', async (req, res) => {
     admin.messages.push({ name, email, phone, subject, message });
     await admin.save();
 
-    res.render("contact", { message: 'Form submitted successfully! The Synth Doctor is on it :)' });
+    res.render("contact", { gKey, message: 'Form submitted successfully! The Synth Doctor is on it :)' });
   } 
   catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
-      res.status(500).render("contact", { errorMessage: error.message });
+      res.status(500).render("contact", { gKey, errorMessage: error.message });
     } else if (error.code === 11000) {
-      res.status(500).render("contact", { errorMessage: "Error. Please try again" });
+      res.status(500).render("contact", { gKey, errorMessage: "Error. Please try again" });
     }
   }
   isRouteRunning = true;

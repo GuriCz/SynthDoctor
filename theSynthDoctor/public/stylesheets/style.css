@@ -161,4 +161,12 @@ body {
   border-radius: 4px;
 }
 
+.statustable {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.statustable th, td {
+  width: 14.28%; /* Divide 100% by the number of columns (7 columns in this case) */
+}
 

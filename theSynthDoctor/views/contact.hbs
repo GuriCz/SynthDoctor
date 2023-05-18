@@ -1,4 +1,4 @@
-<div class="container" style="height: 80vh;">
+<div class="container">
     <h1>Find me</h1>
     <div class="row p-3">
         <div class="col d-flex p-3">
@@ -34,7 +34,7 @@
 
         </div>
     </div>
-    <div class="row">
+    <div class="row py-4 m-3">
         <div class="col">
             <form action="/contact" method="POST">
                 <div class="row">
@@ -56,13 +56,16 @@
                 <div class="form-group p-2">
                     <textarea id="message" name="message" class="form-control" rows="5" placeholder="Message" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-danger p-2">Submit</button>
+                <div class="form-group p-2">
+                    <button type="submit" class="btn btn-danger">Submit</button>
+                </div>
+                
             </form>
-                    {{#if errorMessage}}
-    <p class="error">{{errorMessage}}</p>
-    {{else}}
-    <p class="success">{{message}}</p>
-    {{/if}}
+        {{#if errorMessage}}
+        <p class="error">{{errorMessage}}</p>
+        {{else}}
+        <p class="success">{{message}}</p>
+        {{/if}}
         </div>
         <div class="col">
             <div style="overflow:hidden;height:300px;width:100%;">
