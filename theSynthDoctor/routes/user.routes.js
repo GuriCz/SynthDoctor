@@ -13,6 +13,7 @@ router.get('/contact', (req, res) => {
 });
 
 let isRouteRunning = false;
+
 router.post('/contact', async (req, res) => {
   const { name, email, phone, subject, message } = req.body;
   try {
