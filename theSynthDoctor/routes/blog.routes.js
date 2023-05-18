@@ -40,9 +40,9 @@ router.get("/create-blog", (req, res) => {
 });
 
 router.post("/create-blog", (req, res) => {
-  const { author, title, content } = req.body;
+  const { author, title, content, image } = req.body;
   console.log(req.body);
-  Blog.create({ author, title, content })
+  Blog.create({ author, title, content, image })
     .then((blog) => {
       res.redirect("/blog");
     })
